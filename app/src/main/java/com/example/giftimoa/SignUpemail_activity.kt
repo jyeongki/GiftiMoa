@@ -46,7 +46,7 @@ class SignUpemail_activity : AppCompatActivity() {
                 // 인증 코드 확인 요청
                 verifyVerificationCode(emailEditText.text.toString(), enteredVerificationCode)
             } else {
-                Toast.makeText(this, "인증 코드를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "인증 코드를 입력해주세요..", Toast.LENGTH_SHORT).show()
             }
         }
     }
