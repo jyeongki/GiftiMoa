@@ -2,32 +2,34 @@ package com.example.giftimoa
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.giftimoa.databinding.LayoutSignUpEmailBinding
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
-
 class SignUpemail_activity : AppCompatActivity() {
 
-    private lateinit var binding: LayoutSignUpEmailBinding
-    private lateinit var email: String // 사용자 이메일 주소
+    private lateinit var emailEditText: EditText
+    private lateinit var certificationNum: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LayoutSignUpEmailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.layout_sign_up_email)
 
-        setSupportActionBar(binding.myToolbar)
+        emailEditText = findViewById(R.id.email_editText)
+        certificationNum = findViewById(R.id.certification_num)
+
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.email_double_check.setOnClickListener {
-            email = binding.emailEditText.text.toString()
+        findViewById<Button>(R.id.email_double_check).setOnClickListener {
+            val email = emailEditText.text.toString()
 
             if (email.isNotEmpty()) {
                 // 이메일 중복 확인 요청
@@ -37,12 +39,12 @@ class SignUpemail_activity : AppCompatActivity() {
             }
         }
 
-        binding.nextViewBtn.setOnClickListener {
-            val enteredVerificationCode = binding.certificationNum.text.toString()
+        findViewById<Button>(R.id.nextView_btn).setOnClickListener {
+            val enteredVerificationCode = certificationNum.text.toString()
 
             if (enteredVerificationCode.isNotEmpty()) {
                 // 인증 코드 확인 요청
-                verifyVerificationCode(email, enteredVerificationCode)
+                verifyVerificationCode(emailEditText.text.toString(), enteredVerificationCode)
             } else {
                 Toast.makeText(this, "인증 코드를 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
