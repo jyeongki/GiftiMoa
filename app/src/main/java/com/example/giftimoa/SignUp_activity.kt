@@ -46,7 +46,7 @@ class SignUp_activity : AppCompatActivity() {
         nicknameEditText = findViewById(R.id.user_nickname_editText)
 
         //이메일 값 전달받기
-        val receivedEmail = intent.getStringExtra("emailtext")
+        val receivedEmail = intent.getStringExtra("email_text")
         if (receivedEmail != null) {
             emailEditText.setText(receivedEmail)
         }
