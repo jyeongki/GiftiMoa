@@ -81,7 +81,7 @@
                         android:textColor="@color/black"
                         android:textSize="13dp"/>
                     <EditText
-                        android:id="@+id/text_barcode"
+                        android:id="@+id/text_Effective_date"
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
                         android:layout_margin="6dp"
@@ -100,7 +100,7 @@
                         android:textSize="13dp"/>
 
                     <EditText
-                        android:id="@+id/text_place"
+                        android:id="@+id/text_barcode"
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
                         android:layout_margin="6dp"
@@ -119,7 +119,7 @@
                         android:textSize="13dp"/>
 
                     <EditText
-                        android:id="@+id/text_expiration"
+                        android:id="@+id/text_usage"
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
                         android:layout_margin="6dp"
