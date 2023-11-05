@@ -24,7 +24,7 @@ class RecyclerViewSearchGiftAdapter constructor(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val gift = giftList[position]
+        var gift = giftList[position]
         holder.tv_brand.text = gift.title
         holder.iv_product_preview.setImageResource(gift.image)
 
