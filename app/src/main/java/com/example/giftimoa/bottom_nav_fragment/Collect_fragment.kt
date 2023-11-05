@@ -10,16 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giftimoa.Collect_gift_add_activity
 import com.example.giftimoa.R
-import com.example.giftimoa.Search_gift_activity
 import com.example.giftimoa.adpater_list.RecyclerViewSearchGiftAdapter
+import com.example.giftimoa.databinding.FragmentCollectBinding
 import com.example.giftimoa.dto.Search_Gift
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Collect_fragment : Fragment() {
+
+    private lateinit var binding : FragmentCollectBinding
+
     private var recyclerView: RecyclerView? = null
     private var recyclerViewCollectGiftAdapter: RecyclerViewSearchGiftAdapter? = null
     private var giftList = mutableListOf<Search_Gift>()

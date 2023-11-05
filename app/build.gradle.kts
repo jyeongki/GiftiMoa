@@ -59,7 +59,6 @@ dependencies {
     //Java 개체를 JSON 표현으로 변환하는 데 사용할 수 있는 Java 라이브러리
     implementation ("com.google.code.gson:gson:2.10.1")
 
-
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

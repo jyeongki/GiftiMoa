@@ -9,12 +9,12 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView // Import CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giftimoa.R
-import com.example.giftimoa.Search_gift_activity
+import com.example.giftimoa.home_fragment_List.Search_gift_activity
 import com.example.giftimoa.dto.Collect_Gift
 
 class RecyclerViewCollectGiftAdapter constructor(
-    private val getActivity: Search_gift_activity,
-    private val giftList: List<Collect_Gift>
+    private var getActivity: Search_gift_activity,
+    private var giftList: List<Collect_Gift>
 ) : RecyclerView.Adapter<RecyclerViewCollectGiftAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

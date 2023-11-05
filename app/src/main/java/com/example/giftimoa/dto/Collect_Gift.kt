@@ -11,10 +11,6 @@ data class Collect_Gift(
     var barcode: String,
     @SerializedName("gift_brnad") //사용처
     var brand: String,
-/*  @SerializedName("gift_giftId")
-    var giftId : Int,
-    @SerializedName("gift_imgId")
-    var imgId: Int,*/
     @SerializedName("available") //사용여부
     var available: Boolean
 )

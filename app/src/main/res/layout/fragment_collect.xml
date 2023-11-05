@@ -16,22 +16,27 @@
         android:elevation="11dp"/>
 
 
+    <TextView
+        android:id="@+id/tv_noGifticon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기프티콘을 등록해주세요!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_Gift_Collect"
-        android:layout_marginTop="63dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <!--    <TextView
-            android:id="@+id/tv_noGifticon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="기프티콘을 등록해주세요!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_gravity="center"/>-->
+        android:layout_height="match_parent"
+        android:layout_marginTop="63dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_collect_giticard"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_btn"

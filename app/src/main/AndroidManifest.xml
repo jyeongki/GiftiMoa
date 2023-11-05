@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--  읽기 권한  -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--  현재위치  -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
 
     <application
@@ -28,7 +33,7 @@
             android:name=".PW_Find_activity"
             android:exported="true"/>
         <activity
-            android:name=".Search_gift_activity"
+            android:name=".home_fragment_List.Search_gift_activity"
             android:exported="true"/>
         <activity
             android:name=".Collect_gift_add_activity"
