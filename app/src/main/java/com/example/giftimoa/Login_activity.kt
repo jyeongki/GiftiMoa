@@ -14,6 +14,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.system.exitProcess
 
 class Login_activity : AppCompatActivity() {
 
@@ -118,9 +119,24 @@ class Login_activity : AppCompatActivity() {
         }
 
     }
+    private var backPressedTime: Long = 0
+
     override fun onBackPressed() {
-        // 로그인 화면에서 뒤로가기 버튼을 눌러도 아무 작업을 하지 않도록 비활성화
-        // 이 메서드를 비워두면 뒤로가기 버튼이 작동하지 않음
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - backPressedTime > 2000) {
+            Toast.makeText(this, "한 번 더 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show()
+            backPressedTime = currentTime
+        } else {
+            exitApp() // 앱 종료 함수 호출
+        }
+    }
+
+    private fun exitApp() {
+        finish() // 현재 액티비티 종료
+        moveTaskToBack(true) // 태스크를 백그라운드로 이동
+        android.os.Process.killProcess(android.os.Process.myPid()) // 프로세스 종료
+        exitProcess(1) // 시스템 종료
     }
 }
+
 
