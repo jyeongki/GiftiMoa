@@ -50,7 +50,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.google.code.gson:gson:2.8.8")
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
-
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 
     testImplementation("junit:junit:4.13.2")

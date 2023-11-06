@@ -36,7 +36,7 @@ class Login_activity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             // 서버 URL 설정
-            val serverUrl = "http://3.35.110.246:3306/users?email=$email&password=$password"
+            val serverUrl = "http://3.35.110.246:3306/login_node?email=$email&password=$password"
 
 
             // HTTP GET 요청 보내기
@@ -118,4 +118,9 @@ class Login_activity : AppCompatActivity() {
         }
 
     }
+    override fun onBackPressed() {
+        // 로그인 화면에서 뒤로가기 버튼을 눌러도 아무 작업을 하지 않도록 비활성화
+        // 이 메서드를 비워두면 뒤로가기 버튼이 작동하지 않음
+    }
 }
+
