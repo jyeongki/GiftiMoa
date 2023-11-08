@@ -4,47 +4,30 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.giftimoa.bottom_nav_fragment.Collect_fragment
+import com.example.giftimoa.ViewModel.Gificon_ViewModel
 import com.example.giftimoa.databinding.LayoutCollectGiftAddBinding
 import com.example.giftimoa.dto.Collect_Gift
-import com.googlecode.tesseract.android.TessBaseAPI
-import java.io.File
-import java.io.InputStream
 
 class Collect_gift_add_activity : AppCompatActivity() {
     private lateinit var binding : LayoutCollectGiftAddBinding
 
+    private lateinit var giftViewModel: Gificon_ViewModel
     private val REQUEST_READ_EXTERNAL_STORAGE = 1000
-
-    lateinit var tess: TessBaseAPI //Tesseract API 객체 생성
-    var dataPath: String = "" //데이터 경로 변수 선언
-
-    var dataUri: Uri? = null
-    var str_uri: String = ""
-    var origin_uri:String =""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LayoutCollectGiftAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = intent
-        str_uri=intent.getStringExtra("intent_uri").toString()
-        origin_uri = str_uri
-
+        giftViewModel = ViewModelProvider(this).get(Gificon_ViewModel::class.java)
         //액션바 활성화
         setSupportActionBar(binding.myToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
@@ -95,20 +78,6 @@ class Collect_gift_add_activity : AppCompatActivity() {
             } else {
 
                 loadImage()
-/*
-                dataPath = filesDir.toString() + "/tesseract/" //언어데이터의 경로 미리 지정
-
-                checkFile(File(dataPath + "tessdata/"), "kor") //사용할 언어파일의 이름 지정
-                checkFile(File(dataPath + "tessdata/"), "eng")
-
-                var lang: String = "kor+eng"
-                tess = TessBaseAPI() //api준비
-                Log.d("sys", "api")
-                tess.setDebug(true)
-                Log.d("sys", "디버그")
-                tess.init(dataPath, lang) //해당 사용할 언어데이터로 초기화
-                Log.d("sys", "언어초기화")
-*/
 
             }
         })
@@ -137,27 +106,29 @@ class Collect_gift_add_activity : AppCompatActivity() {
     }
 
 
+    private fun giftAdd() {
+        var giftName = binding.textGiftName.text.toString()
+        var effectiveDate = binding.textEffectiveDate.text.toString()
+        var barcode = binding.textBarcode.text.toString()
+        var usage = binding.textUsage.text.toString()
+
+        val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage)
+
+        // Create an Intent to hold the result
+        val resultIntent = Intent()
+        // Put the gift into the Intent
+        resultIntent.putExtra("gift", collectGift)
+        // Set the result with the Intent
+        setResult(Activity.RESULT_OK, resultIntent)
+
+        finish()
+    }
+
+
     private fun giftAdd_Btn() {
         binding.addBtn.setOnClickListener {
-            var str_uri: String
-            if(dataUri==null){
-                str_uri=origin_uri
-            }else{
-                str_uri=dataUri.toString()
-            }
-            var giftName = binding.textGiftName.text.toString()
-            var effectiveDate = binding.textEffectiveDate.text.toString()
-            var barcode = binding.textBarcode.text.toString()
-            var usage = binding.textUsage.text.toString()
-
-
-            val intent = Intent(this, Collect_fragment::class.java)
-            intent.putExtra("gift_Name", giftName)
-            intent.putExtra("gift_effectiveDate", effectiveDate)
-            intent.putExtra("gift_barcode", barcode)
-            intent.putExtra("gift_usage", usage)
-            startActivity(intent)
-
+            giftAdd()
+            finish()
         }
     }
 }
