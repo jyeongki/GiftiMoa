@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +51,7 @@ class Collect_fragment : Fragment() {
     private val activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK && result.data != null) {
             // Get the gift from the result Intent
-            val collectGift = result.data!!.getSerializableExtra("gift") as Collect_Gift
+            val collectGift = result.data!!.extras!!.get("gift") as Collect_Gift
             // Add the gift to the ViewModel
             giftViewModel.addGift(collectGift)
         }
@@ -65,23 +66,32 @@ class Collect_fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val noGifticonTextView = view.findViewById<TextView>(R.id.tv_noGifticon)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_Gift_Collect)
         recyclerViewCollectGiftAdapter = RecyclerViewCollectGiftAdapter(mutableListOf())
         val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(requireActivity(), 2)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = recyclerViewCollectGiftAdapter
 
+        //뷰모델을 이용해 기프티콘 등록
         giftViewModel.collectGifts.observe(viewLifecycleOwner, { gifts ->
             // Clone the gift list and convert to MutableList
             val giftList = gifts.toMutableList()
 
-            // Update the adapter's data
+            // 어댑터에 데이터 추가
             recyclerViewCollectGiftAdapter.setGiftList(giftList)
             recyclerViewCollectGiftAdapter.notifyDataSetChanged()
             Log.d("Collect_fragment", "Gift list updated. Total gifts: ${giftList.size}")
+
+            // 만약 기프티콘이 등록 되면 등록안내 문구 hide 아니면 show
+            if (giftList.isEmpty()) {
+                noGifticonTextView.visibility = View.VISIBLE
+            } else {
+                noGifticonTextView.visibility = View.GONE
+            }
         })
 
-        // 플로팅 버튼 클릭 시 다음 화면의 액티비티로 이동
+        // 플로팅 버튼 클릭 시 다음 화면의 액티비티로 이동(기프티콘 등록)
         view.findViewById<FloatingActionButton>(R.id.fab_btn).setOnClickListener {
             startCollectGiftAddActivity()
         }

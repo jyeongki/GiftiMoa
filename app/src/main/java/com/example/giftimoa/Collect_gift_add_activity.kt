@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -112,23 +113,28 @@ class Collect_gift_add_activity : AppCompatActivity() {
         var barcode = binding.textBarcode.text.toString()
         var usage = binding.textUsage.text.toString()
 
-        val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage)
+        if(giftName.isEmpty() || effectiveDate.isEmpty() || barcode.isEmpty() || usage.isEmpty()) {
+            // One or more fields are empty
+            Toast.makeText(this, "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show()
+        } else {
+            // All fields are filled, proceed with the registration
+            val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage)
 
-        // Create an Intent to hold the result
-        val resultIntent = Intent()
-        // Put the gift into the Intent
-        resultIntent.putExtra("gift", collectGift)
-        // Set the result with the Intent
-        setResult(Activity.RESULT_OK, resultIntent)
+            // Create an Intent to hold the result
+            val resultIntent = Intent()
+            // Put the gift into the Intent
+            resultIntent.putExtra("gift", collectGift)
+            // Set the result with the Intent
+            setResult(Activity.RESULT_OK, resultIntent)
 
-        finish()
+            finish()
+        }
     }
 
 
     private fun giftAdd_Btn() {
         binding.addBtn.setOnClickListener {
             giftAdd()
-            finish()
         }
     }
 }
