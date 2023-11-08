@@ -2,15 +2,11 @@ package com.example.giftimoa
 
 import android.Manifest
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,18 +16,12 @@ import com.bumptech.glide.Glide
 import com.example.giftimoa.ViewModel.Gificon_ViewModel
 import com.example.giftimoa.databinding.LayoutCollectGiftAddBinding
 import com.example.giftimoa.dto.Collect_Gift
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
-import java.util.UUID
 
 class Collect_gift_add_activity : AppCompatActivity() {
     private lateinit var binding : LayoutCollectGiftAddBinding
 
     private lateinit var giftViewModel: Gificon_ViewModel
     private val REQUEST_READ_EXTERNAL_STORAGE = 1000
-    private var imageUrl: String = ""
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LayoutCollectGiftAddBinding.inflate(layoutInflater)
@@ -45,12 +35,8 @@ class Collect_gift_add_activity : AppCompatActivity() {
         supportActionBar?.title = "기프티콘 등록"
 
         galleryClickEvent()
-
-        binding.textEffectiveDate.setOnClickListener {
-            showDatePickerDialog()
-        }
-
         giftAdd_Btn()
+
     }
 
     //이미지 클릭시 갤러리 권한 요청 및
@@ -111,9 +97,6 @@ class Collect_gift_add_activity : AppCompatActivity() {
             Glide.with(this)
                 .load(uri)
                 .into(binding.uploadImage)
-
-            // 이미지 URI를 문자열로 변환하여 저장
-            imageUrl = uri.toString()
         }
     }
 
@@ -123,47 +106,29 @@ class Collect_gift_add_activity : AppCompatActivity() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun giftAdd() {
         var giftName = binding.textGiftName.text.toString()
         var effectiveDate = binding.textEffectiveDate.text.toString()
         var barcode = binding.textBarcode.text.toString()
         var usage = binding.textUsage.text.toString()
 
-        if(giftName.isEmpty() || effectiveDate.isEmpty() || barcode.isEmpty() || usage.isEmpty() || imageUrl.isEmpty()) {
-            Toast.makeText(this, "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show()
-        } else {
-            val id = UUID.randomUUID().hashCode()
-            val collectGift = Collect_Gift(id,giftName, effectiveDate, barcode, usage, imageUrl, 0)
-            collectGift.state = Collect_Utils.calState(collectGift)  // state 값에 calState의 결과를 할당
-            val resultIntent = Intent()
-            resultIntent.putExtra("gift", collectGift)
-            setResult(Activity.RESULT_OK, resultIntent)
+        val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage)
 
-            finish()
-        }
+        // Create an Intent to hold the result
+        val resultIntent = Intent()
+        // Put the gift into the Intent
+        resultIntent.putExtra("gift", collectGift)
+        // Set the result with the Intent
+        setResult(Activity.RESULT_OK, resultIntent)
+
+        finish()
     }
 
 
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = Calendar.getInstance()
-            selectedDate.set(selectedYear, selectedMonth, selectedDay)
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate.time)
-            binding.textEffectiveDate.setText(date)
-        }, year, month, day).show()
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun giftAdd_Btn() {
         binding.addBtn.setOnClickListener {
             giftAdd()
+            finish()
         }
     }
 }

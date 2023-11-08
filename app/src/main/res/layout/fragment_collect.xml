@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
-        android:elevation="6dp"/>
+        android:elevation="3dp"/>
 
 
     <TextView
