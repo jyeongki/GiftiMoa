@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giftimoa.Collect_gift_add_activity
+import com.example.giftimoa.Collect_gift_add_info_activity
 import com.example.giftimoa.R
 import com.example.giftimoa.ViewModel.Gificon_ViewModel
 import com.example.giftimoa.adpater_list.RecyclerViewCollectGiftAdapter
@@ -68,15 +69,23 @@ class Collect_fragment : Fragment() {
 
         val noGifticonTextView = view.findViewById<TextView>(R.id.tv_noGifticon)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_Gift_Collect)
-        recyclerViewCollectGiftAdapter = RecyclerViewCollectGiftAdapter(mutableListOf())
         val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(requireActivity(), 2)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = recyclerViewCollectGiftAdapter
 
-        //뷰모델을 이용해 기프티콘 등록
+        // 뷰모델을 이용해 기프티콘 등록
         giftViewModel.collectGifts.observe(viewLifecycleOwner, { gifts ->
             // Clone the gift list and convert to MutableList
             val giftList = gifts.toMutableList()
+
+            // 어댑터를 생성하고 아이템 클릭 리스너를 설정합니다.
+            recyclerViewCollectGiftAdapter = RecyclerViewCollectGiftAdapter(giftList) { gift ->
+                // Start the new activity
+                val intent = Intent(requireContext(), Collect_gift_add_info_activity::class.java)
+                intent.putExtra("gift", gift)
+                startActivity(intent)
+            }
+
+            recyclerView.adapter = recyclerViewCollectGiftAdapter
 
             // 어댑터에 데이터 추가
             recyclerViewCollectGiftAdapter.setGiftList(giftList)
@@ -96,6 +105,7 @@ class Collect_fragment : Fragment() {
             startCollectGiftAddActivity()
         }
     }
+
 
     //액션바 옵션(검색)
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
