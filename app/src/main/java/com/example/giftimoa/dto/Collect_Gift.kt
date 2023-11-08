@@ -1,13 +1,10 @@
 package com.example.giftimoa.dto
-
-import android.net.Uri
-import com.google.gson.annotations.SerializedName
-
 import java.io.Serializable
 
-data class Collect_Gift(
-    var giftName: String,
-    var effectiveDate: String,
-    var barcode: String,
-    var usage: String
+class Collect_Gift(
+    val giftName: String,
+    val effectiveDate: String,
+    val barcode: String,
+    val usage: String,
+    val imageUrl: String  // 이미지 URL을 저장할 프로퍼티를 추가
 ) : Serializable

@@ -60,7 +60,6 @@ class Collect_fragment : Fragment() {
 
     private fun startCollectGiftAddActivity() {
         val intent = Intent(requireContext(), Collect_gift_add_activity::class.java)
-        // Launch Collect_gift_add_activity and register the callback to receive the result
         activityResult.launch(intent)
     }
 
