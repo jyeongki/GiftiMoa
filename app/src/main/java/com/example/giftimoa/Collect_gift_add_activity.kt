@@ -23,6 +23,7 @@ class Collect_gift_add_activity : AppCompatActivity() {
 
     private lateinit var giftViewModel: Gificon_ViewModel
     private val REQUEST_READ_EXTERNAL_STORAGE = 1000
+    private var imageUrl: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LayoutCollectGiftAddBinding.inflate(layoutInflater)
@@ -98,6 +99,9 @@ class Collect_gift_add_activity : AppCompatActivity() {
             Glide.with(this)
                 .load(uri)
                 .into(binding.uploadImage)
+
+            // 이미지 URI를 문자열로 변환하여 저장
+            imageUrl = uri.toString()
         }
     }
 
@@ -113,24 +117,17 @@ class Collect_gift_add_activity : AppCompatActivity() {
         var barcode = binding.textBarcode.text.toString()
         var usage = binding.textUsage.text.toString()
 
-        if(giftName.isEmpty() || effectiveDate.isEmpty() || barcode.isEmpty() || usage.isEmpty()) {
-            // One or more fields are empty
+        if(giftName.isEmpty() || effectiveDate.isEmpty() || barcode.isEmpty() || usage.isEmpty() || imageUrl.isEmpty()) {
             Toast.makeText(this, "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show()
         } else {
-            // All fields are filled, proceed with the registration
-            val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage)
-
-            // Create an Intent to hold the result
+            val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage, imageUrl)
             val resultIntent = Intent()
-            // Put the gift into the Intent
             resultIntent.putExtra("gift", collectGift)
-            // Set the result with the Intent
             setResult(Activity.RESULT_OK, resultIntent)
 
             finish()
         }
     }
-
 
     private fun giftAdd_Btn() {
         binding.addBtn.setOnClickListener {
