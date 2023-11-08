@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>    <!--저장소 읽기 권한-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>    <!--저장소 쓰기 권한-->
 
 
 <application
@@ -28,6 +30,9 @@
         android:exported="true"/>
     <activity
         android:name=".home_fragment_List.Search_gift_activity"
+        android:exported="true"/>
+    <activity
+        android:name=".Collect_gift_add_info_activity"
         android:exported="true"/>
     <activity
         android:name=".Collect_gift_add_activity"
