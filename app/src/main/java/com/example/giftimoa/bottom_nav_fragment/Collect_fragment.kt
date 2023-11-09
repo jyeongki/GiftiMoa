@@ -73,7 +73,6 @@ class Collect_fragment : Fragment() {
 
         // 뷰모델을 이용해 기프티콘 등록
         giftViewModel.collectGifts.observe(viewLifecycleOwner, { gifts ->
-            // Clone the gift list and convert to MutableList
             val giftList = gifts.toMutableList()
 
             // 어댑터를 생성하고 아이템 클릭 리스너를 설정합니다.
