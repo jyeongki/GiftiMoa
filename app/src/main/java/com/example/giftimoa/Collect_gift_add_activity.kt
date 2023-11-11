@@ -120,7 +120,8 @@ class Collect_gift_add_activity : AppCompatActivity() {
         if(giftName.isEmpty() || effectiveDate.isEmpty() || barcode.isEmpty() || usage.isEmpty() || imageUrl.isEmpty()) {
             Toast.makeText(this, "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show()
         } else {
-            val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage, imageUrl)
+            val collectGift = Collect_Gift(giftName, effectiveDate, barcode, usage, imageUrl, 0)
+            collectGift.state = Utils.calState(collectGift)  // state 값에 calState의 결과를 할당
             val resultIntent = Intent()
             resultIntent.putExtra("gift", collectGift)
             setResult(Activity.RESULT_OK, resultIntent)

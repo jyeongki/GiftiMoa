@@ -6,5 +6,11 @@ class Collect_Gift(
     val effectiveDate: String,
     val barcode: String,
     val usage: String,
-    val imageUrl: String
+    val imageUrl: String,
+    var state: Int
 ) : Serializable
+
+data class Badge(
+    val content: String,
+    val color: String
+)
