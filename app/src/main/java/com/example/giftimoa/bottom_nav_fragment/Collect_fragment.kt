@@ -29,6 +29,8 @@ class Collect_fragment : Fragment() {
 
     private lateinit var giftViewModel: Gificon_ViewModel
     private lateinit var recyclerViewCollectGiftAdapter: RecyclerViewCollectGiftAdapter
+    private lateinit var noGifticonTextView: TextView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,41 +68,45 @@ class Collect_fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val noGifticonTextView = view.findViewById<TextView>(R.id.tv_noGifticon)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_Gift_Collect)
+        noGifticonTextView = view.findViewById<TextView>(R.id.tv_noGifticon)
+        recyclerView = view.findViewById<RecyclerView>(R.id.rv_Gift_Collect)
         val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(requireActivity(), 2)
         recyclerView.layoutManager = layoutManager
 
         // 뷰모델을 이용해 기프티콘 등록
         giftViewModel.collectGifts.observe(viewLifecycleOwner, { gifts ->
-            val giftList = gifts.toMutableList()
-
-            // 어댑터를 생성하고 아이템 클릭 리스너를 설정합니다.
-            recyclerViewCollectGiftAdapter = RecyclerViewCollectGiftAdapter(giftList) { gift ->
-                // Start the new activity
-                val intent = Intent(requireContext(), Collect_gift_add_info_activity::class.java)
-                intent.putExtra("gift", gift)
-                startActivity(intent)
-            }
-
-            recyclerView.adapter = recyclerViewCollectGiftAdapter
-
-            // 어댑터에 데이터 추가
-            recyclerViewCollectGiftAdapter.setGiftList(giftList)
-            recyclerViewCollectGiftAdapter.notifyDataSetChanged()
-            Log.d("Collect_fragment", "Gift list updated. Total gifts: ${giftList.size}")
-
-            // 만약 기프티콘이 등록 되면 등록안내 문구 hide 아니면 show
-            if (giftList.isEmpty()) {
-                noGifticonTextView.visibility = View.VISIBLE
-            } else {
-                noGifticonTextView.visibility = View.GONE
-            }
+            updateRecyclerView(gifts)
         })
 
         // 플로팅 버튼 클릭 시 다음 화면의 액티비티로 이동(기프티콘 등록)
         view.findViewById<FloatingActionButton>(R.id.fab_btn).setOnClickListener {
             startCollectGiftAddActivity()
+        }
+    }
+
+    private fun updateRecyclerView(gifts: List<Collect_Gift>) {
+        val giftList = gifts.toMutableList()
+
+        // 어댑터를 생성하고 아이템 클릭 리스너를 설정합니다.
+        recyclerViewCollectGiftAdapter = RecyclerViewCollectGiftAdapter(giftList) { gift ->
+            // Start the new activity
+            val intent = Intent(requireContext(), Collect_gift_add_info_activity::class.java)
+            intent.putExtra("gift", gift)
+            startActivity(intent)
+        }
+
+        recyclerView.adapter = recyclerViewCollectGiftAdapter
+
+        // 어댑터에 데이터 추가
+        recyclerViewCollectGiftAdapter.setGiftList(giftList)
+        recyclerViewCollectGiftAdapter.notifyDataSetChanged()
+        Log.d("Collect_fragment", "Gift list updated. Total gifts: ${giftList.size}")
+
+        // 만약 기프티콘이 등록 되면 등록안내 문구 hide 아니면 show
+        if (giftList.isEmpty()) {
+            noGifticonTextView.visibility = View.VISIBLE
+        } else {
+            noGifticonTextView.visibility = View.GONE
         }
     }
 
