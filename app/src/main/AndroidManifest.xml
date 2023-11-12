@@ -38,6 +38,9 @@
         android:name=".FullScreenImage_Activity"
         android:exported="true"/>
     <activity
+        android:name=".Collect_gift_edit_activity"
+        android:exported="true"/>
+    <activity
         android:name=".Collect_gift_add_info_activity"
         android:exported="true"/>
     <activity
