@@ -51,8 +51,6 @@ class Collect_gift_add_activity : AppCompatActivity() {
         }
 
         giftAdd_Btn()
-
-
     }
 
     //이미지 클릭시 갤러리 권한 요청 및
@@ -137,7 +135,7 @@ class Collect_gift_add_activity : AppCompatActivity() {
         } else {
             val id = UUID.randomUUID().hashCode()
             val collectGift = Collect_Gift(id,giftName, effectiveDate, barcode, usage, imageUrl, 0)
-            collectGift.state = Utils.calState(collectGift)  // state 값에 calState의 결과를 할당
+            collectGift.state = Collect_Utils.calState(collectGift)  // state 값에 calState의 결과를 할당
             val resultIntent = Intent()
             resultIntent.putExtra("gift", collectGift)
             setResult(Activity.RESULT_OK, resultIntent)
