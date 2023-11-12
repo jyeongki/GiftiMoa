@@ -77,12 +77,14 @@ class ID_Find_activity : AppCompatActivity() {
                                 } else {
                                     val errorMessage = jsonObject.get("message").asString
                                     Toast.makeText(this@ID_Find_activity, errorMessage, Toast.LENGTH_SHORT).show()
+                                    emailTextView.text = ""
                                 }
                             }
                         } else {
                             runOnUiThread {
                                 // Handle unsuccessful response...
                                 Toast.makeText(this@ID_Find_activity, "아이디 찾기에 실패 하였습니다.", Toast.LENGTH_SHORT).show()
+                                emailTextView.text = ""
                             }
                         }
                     } catch (e: Exception) {
@@ -94,6 +96,7 @@ class ID_Find_activity : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this@ID_Find_activity, "유효하지 않은 전화번호입니다.", Toast.LENGTH_SHORT).show()
+                emailTextView.text = ""
             }
         }
 
