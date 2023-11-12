@@ -69,7 +69,6 @@
                         android:layout_height="42dp"
                         android:layout_margin="6dp"
                         android:background="@drawable/border"
-                        android:inputType="textMultiLine|textNoSuggestions"
                         android:paddingLeft="6dp"
                         android:textColor="@color/black"
                         android:singleLine="true"
@@ -94,7 +93,6 @@
                         android:textColor="@color/black"
                         android:singleLine="true"
                         android:maxLines="1"
-                        android:focusable="false"
                         tools:ignore="TouchTargetSizeCheck" />
 
                     <!--바코드-->
@@ -112,7 +110,6 @@
                         android:layout_height="42dp"
                         android:layout_margin="6dp"
                         android:background="@drawable/border"
-                        android:inputType="textMultiLine|textNoSuggestions"
                         android:paddingLeft="6dp"
                         android:textColor="@color/black"
                         android:singleLine="true"
@@ -134,7 +131,6 @@
                         android:layout_height="42dp"
                         android:layout_margin="6dp"
                         android:background="@drawable/border"
-                        android:inputType="textMultiLine|textNoSuggestions"
                         android:paddingLeft="6dp"
                         android:textColor="@color/black"
                         android:singleLine="true"
