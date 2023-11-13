@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="black_01">#000000</color>
-    <color name="black_01_a08">#14000000</color>
+    <color name="black_01_a08">#DF000000</color>
     <color name="black_02">#111111</color>
     <color name="black_03">#0C0D0D</color>
 
@@ -14,6 +14,9 @@
     <color name="blackshadow">#303030</color>
     <color name="brown">#604309</color>
     <color name="orange">#F7B733</color>
+    <color name="red">#FF0000</color>
+    <color name="crimson">#DC143C</color>
+
 
     <!--회색-->
     <color name="grey_01">#5f5f69</color>

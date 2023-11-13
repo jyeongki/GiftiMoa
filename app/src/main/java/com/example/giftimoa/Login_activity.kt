@@ -14,8 +14,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-import kotlin.system.exitProcess
-
+private var waitTime = 0L
 class Login_activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,7 @@ class Login_activity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             // 서버 URL 설정
-            val serverUrl = "http://3.35.110.246:3306/login_node?email=$email&password=$password"
+            val serverUrl = "http://3.35.110.246:3306/users?email=$email&password=$password"
 
 
             // HTTP GET 요청 보내기
@@ -118,25 +117,14 @@ class Login_activity : AppCompatActivity() {
             startActivity(intent)
         }
 
-    }
-    private var backPressedTime: Long = 0
 
+    }
     override fun onBackPressed() {
-        val currentTime = System.currentTimeMillis()
-        if (currentTime - backPressedTime > 2000) {
-            Toast.makeText(this, "한 번 더 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show()
-            backPressedTime = currentTime
+        if(System.currentTimeMillis() - waitTime >=1500 ) {
+            waitTime = System.currentTimeMillis()
+            Toast.makeText(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
         } else {
-            exitApp() // 앱 종료 함수 호출
+            finish() // 액티비티 종료
         }
     }
-
-    private fun exitApp() {
-        finish() // 현재 액티비티 종료
-        moveTaskToBack(true) // 태스크를 백그라운드로 이동
-        android.os.Process.killProcess(android.os.Process.myPid()) // 프로세스 종료
-        exitProcess(1) // 시스템 종료
-    }
 }
-
-
