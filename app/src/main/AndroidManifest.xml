@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>    <!--저장소 읽기 권한-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>    <!--저장소 쓰기 권한-->
+
 
 <application
-
     android:networkSecurityConfig="@xml/network_security_config"
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,18 +20,35 @@
     tools:targetApi="31">
 
 
-
+    <activity
+        android:name=".Menu_Mygifticon_activity"
+        android:exported="true"/>
+    <activity
+        android:name=".Menu_favorite_activity"
+        android:exported="true"/>
     <activity
         android:name=".ID_Find_activity"
+        android:exported="true"/>
+    <activity
+        android:name=".PW_Find_Result_activity"
         android:exported="true"/>
     <activity
         android:name=".PW_Find_activity"
         android:exported="true"/>
     <activity
-        android:name=".Search_gift_activity"
+        android:name=".home_fragment_List.Search_gift_activity"
+        android:exported="true"/>
+    <activity
+        android:name=".Collect_gift_edit_activity"
+        android:exported="true"/>
+    <activity
+        android:name=".Collect_gift_add_info_activity"
         android:exported="true"/>
     <activity
         android:name=".Collect_gift_add_activity"
+        android:exported="true"/>
+    <activity
+        android:name=".Home_gift_add_info_activity"
         android:exported="true"/>
     <activity
         android:name=".Home_gift_add_activity"
@@ -44,11 +63,11 @@
         android:name=".MainActivity"
         android:exported="true"/>
     <activity
-        android:name=".PW_Find_Result_activity"
-        android:exported="true"/>
-    <activity
         android:name=".Login_activity"
         android:exported="true">
+
+
+
 
 
 

@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayF1">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grayF1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".bottom_nav_fragment.Home_Fragment"
@@ -252,18 +263,32 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최신 기프티콘"
+        android:layout_marginTop="435dp"
+        android:layout_marginLeft="15dp"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
     <!--중고 아이템 목록-->
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Gift_Home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="430dp"
-        app:layout_anchor="@+id/linearLayout"
-        app:layout_anchorGravity="bottom|center">
+        android:layout_marginTop="465dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
 
-
+        app:spanCount="2"
+        tools:listitem="@layout/item_home_giftcard">
     </androidx.recyclerview.widget.RecyclerView>
-
+</FrameLayout>
+</androidx.core.widget.NestedScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_btn"
         android:layout_width="wrap_content"
@@ -273,5 +298,4 @@
         app:backgroundTint="@color/maincolor"
         app:elevation="6dp"
         android:src="@drawable/ic_add"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

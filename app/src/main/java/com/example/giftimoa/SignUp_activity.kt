@@ -18,7 +18,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
-import com.google.gson.JsonParser
 
 class SignUp_activity : AppCompatActivity() {
     private lateinit var emailEditText: TextInputEditText
@@ -36,8 +35,8 @@ class SignUp_activity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.title = "회원가입"  // 액션바 제목 설정
-
+        supportActionBar?.title = "회원가입"
+        
         val signUpButton: Button = findViewById(R.id.signup_button)
         emailEditText = findViewById(R.id.ID_textField_editText)
         passwordEditText = findViewById(R.id.PW_textField_editText)
@@ -46,117 +45,12 @@ class SignUp_activity : AppCompatActivity() {
         phoneNumberEditText = findViewById(R.id.user_phone_number_editText)
         nicknameEditText = findViewById(R.id.user_nickname_editText)
 
-        // 닉네임 중복 확인 버튼 클릭 이벤트 처리
-        val nicknameDoubleCheckButton: Button = findViewById(R.id.nickname_double_check)
-        nicknameDoubleCheckButton.setOnClickListener {
-            val nickname = nicknameEditText.text.toString()
-
-            // "nickname double-check"을 위한 서버 URL로 대체하십시오
-            val url = "http://3.35.110.246:3306/checkNickName"
-
-            val json = JsonObject().apply {
-                addProperty("username", nickname) // "nickname" 대신 "username"으로 변경
-            }
-
-            val mediaType = "application/json; charset=utf-8".toMediaType()
-            val requestBody = json.toString().toRequestBody(mediaType)
-
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val response: Response = withContext(Dispatchers.IO) {
-                        OkHttpClient().newCall(request).execute()
-                    }
-
-                    if (response.isSuccessful) {
-                        val responseData = response.body?.string()
-                        val jsonObject = JsonParser().parse(responseData).asJsonObject
-                        val status = jsonObject.get("status").asString
-
-                        runOnUiThread {
-                            if (status == "중복") {
-                                Toast.makeText(this@SignUp_activity, "이 닉네임은 이미 사용 중입니다.", Toast.LENGTH_SHORT).show()
-                            } else if (status == "중복 아님") {
-                                Toast.makeText(this@SignUp_activity, "사용 가능한 닉네임입니다.", Toast.LENGTH_SHORT).show()
-                                nicknameEditText.isEnabled = false
-                                nicknameEditText.isFocusable = false
-                                nicknameEditText.isFocusableInTouchMode = false
-                            }
-                        }
-                    } else {
-                        runOnUiThread {
-                            Toast.makeText(this@SignUp_activity, "서버 오류", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    runOnUiThread {
-                        Toast.makeText(this@SignUp_activity, "오류 발생${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
-        // 핸드폰 번호 중복 확인 버튼 클릭 이벤트 처리
-        val phoneDoubleCheckButton: Button = findViewById(R.id.phone_double_check)
-        phoneDoubleCheckButton.setOnClickListener {
-            val phoneNumber = phoneNumberEditText.text.toString()
-
-            val url = "http://3.35.110.246:3306/checkPhoneNumber" // 핸드폰 번호 중복 체크
-            val json = JsonObject().apply {
-                addProperty("phone_number", phoneNumber)
-            }
-            val mediaType = "application/json; charset=utf-8".toMediaType()
-            val requestBody = json.toString().toRequestBody(mediaType)
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build()
-
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val response: Response = withContext(Dispatchers.IO) {
-                        OkHttpClient().newCall(request).execute()
-                    }
-
-                    if (response.isSuccessful) {
-                        val responseData = response.body?.string()
-                        val jsonObject = JsonParser().parse(responseData).asJsonObject
-                        val status = jsonObject.get("status").asString
-
-                        runOnUiThread {
-                            if (status == "중복") {
-                                Toast.makeText(this@SignUp_activity, "이 번호는 이미 사용 중입니다.", Toast.LENGTH_SHORT).show()
-                            } else if (status == "중복 아님") {
-                                Toast.makeText(this@SignUp_activity, "사용 가능한 번호입니다.", Toast.LENGTH_SHORT).show()
-                                phoneNumberEditText.isEnabled = false
-                                phoneNumberEditText.isFocusable = false
-                                phoneNumberEditText.isFocusableInTouchMode = false
-                            }
-                        }
-                    } else {
-                        runOnUiThread {
-                            Toast.makeText(this@SignUp_activity, "서버 오류", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    runOnUiThread {
-                        Toast.makeText(this@SignUp_activity, "오류 발생${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
-        val receivedEmail = intent.getStringExtra("email_text")
+        //이메일 값 전달받기
+        val receivedEmail = intent.getStringExtra("emailtext")
         if (receivedEmail != null) {
             emailEditText.setText(receivedEmail)
         }
-        setUseableEditText(emailEditText, false)  // 이메일 입력 필드를 비활성화
+        setUseableEditText(emailEditText,false)
 
         signUpButton.setOnClickListener {
             if (validateForm()) {
@@ -166,7 +60,7 @@ class SignUp_activity : AppCompatActivity() {
                 val phoneNumber = phoneNumberEditText.text.toString()
                 val username = nicknameEditText.text.toString()
 
-                val url = "http://3.35.110.246:3306/signup_node"
+                val url = "http://3.35.110.246:3306/signup3"
                 val json = JsonObject().apply {
                     addProperty("email", email)
                     addProperty("password", password)
@@ -181,7 +75,7 @@ class SignUp_activity : AppCompatActivity() {
                     .post(requestBody)
                     .build()
 
-                // 비동기 네트워크 요청을 위해 CoroutineScope 사용
+                // Use CoroutineScope for asynchronous network request
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val response: Response = withContext(Dispatchers.IO) {
@@ -217,7 +111,6 @@ class SignUp_activity : AppCompatActivity() {
         et.isFocusableInTouchMode = useable
     }
 
-    // 양식 유효성 검사를 수행하는 메서드
     private fun validateForm(): Boolean {
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
@@ -247,6 +140,7 @@ class SignUp_activity : AppCompatActivity() {
             confirmPasswordEditText.error = null
         }
 
+
         if (!isValidPhoneNumber(phoneNumber)) {
             phoneNumberEditText.error = "올바른 핸드폰 번호를 입력하세요."
             return false
@@ -261,24 +155,20 @@ class SignUp_activity : AppCompatActivity() {
         return true
     }
 
-    // 이메일 유효성 검사를 수행하는 메서드
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}"
         return email.matches(emailPattern.toRegex())
     }
 
-    // 비밀번호 유효성 검사를 수행하는 메서드
     private fun isValidPassword(password: String): Boolean {
         val passwordPattern = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#\$%^&+=]).{8,}$"
         return password.matches(passwordPattern.toRegex())
     }
 
-    // 핸드폰 번호 유효성 검사를 수행하는 메서드
     private fun isValidPhoneNumber(phoneNumber: String): Boolean {
         val phoneNumberPattern = "^01[0-9]{8,9}$"
         return phoneNumber.matches(phoneNumberPattern.toRegex())
     }
-
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

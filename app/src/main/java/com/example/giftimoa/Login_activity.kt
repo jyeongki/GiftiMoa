@@ -1,5 +1,6 @@
 package com.example.giftimoa
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -73,8 +74,16 @@ class Login_activity : AppCompatActivity() {
                             val result = jsonObject.getInt("result")
 
                             if (result == 0) {
+
+                                // SharedPreferences에 email 저장
+                                val sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                                val editor = sharedPreferences.edit()
+                                editor.putString("user_email", email)
+                                editor.apply()
+
                                 // 로그인 성공 시 다음 화면으로 이동
                                 val intent = Intent(this, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
                                 finish()
                             } else if (result == 1) {
@@ -129,7 +138,7 @@ class Login_activity : AppCompatActivity() {
     override fun onBackPressed() {
         val currentTime = System.currentTimeMillis()
         if (currentTime - backPressedTime > 2000) {
-            Toast.makeText(this, "한 번 더 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "한 번 더 누르면 앱이 종료됩니다..", Toast.LENGTH_SHORT).show()
             backPressedTime = currentTime
         } else {
             exitApp() // 앱 종료 함수 호출

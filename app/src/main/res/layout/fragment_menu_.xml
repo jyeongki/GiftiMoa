@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <variable
-            name="user"
-            type="com.example.giftimoa.dto.User" />
-        <variable
-            name="noti_time"
-            type="String" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,7 +10,6 @@
         android:paddingBottom="?attr/actionBarSize">
 
         <LinearLayout
-
             android:id="@+id/l_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +32,8 @@
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"/>
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:src="@drawable/join_id"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -55,7 +46,8 @@
                         android:id="@+id/tv_title_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/account"
+                        android:layout_marginTop="10dp"
+                        android:text="닉네임님 환영합니다."
                         style="@style/Bold"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent" />
@@ -65,33 +57,13 @@
                         style="@style/Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{user.email}"
+                        android:text="test@naver.com"
                         android:textSize="12sp"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_account"
                         app:layout_constraintLeft_toLeftOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/iv_title_account"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="9dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tv_join"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/join"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:visibility="gone"
-                style="@style/Bold"/>
 
         </LinearLayout>
 
@@ -129,7 +101,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/switch_Orange"
-                    android:checked="@{user.alarm==0 ? false : true}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 
@@ -151,7 +122,8 @@
                     android:paddingLeft="34dp"
                     android:paddingBottom="8dp"
                     android:background="@drawable/change_color_press_white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:foreground="?attr/selectableItemBackground">
 
                     <TextView
                         android:id="@+id/tv_noti_title_first"
@@ -167,13 +139,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <!--마감입박 최초 알림 숫자-->
                         <TextView
                             android:id="@+id/tv_noti_setting_first"
                             style="@style/Regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:text="@{String.valueOf(user.nday)}"/>
+                            android:text="0"/>
 
                         <TextView
                             android:id="@+id/tv_noti_setting_first_text"
@@ -197,7 +170,8 @@
                     android:paddingLeft="34dp"
                     android:paddingBottom="8dp"
                     android:background="@drawable/change_color_press_white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:foreground="?attr/selectableItemBackground">
 
                     <TextView
                         android:id="@+id/tv_noti_title_interval"
@@ -213,13 +187,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <!--마감임박 알림 간격 숫자-->
                         <TextView
                             android:id="@+id/tv_noti_setting_interval"
                             style="@style/Regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:text="@{String.valueOf(user.term)}" />
+                            android:text="0" />
 
                         <TextView
                             android:id="@+id/tv_noti_setting_interval_text"
@@ -230,7 +205,6 @@
                             android:text="@string/interval" />
 
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -243,7 +217,8 @@
                     android:paddingLeft="34dp"
                     android:paddingBottom="8dp"
                     android:background="@drawable/change_color_press_white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:foreground="?attr/selectableItemBackground">
 
                     <TextView
                         android:id="@+id/tv_noti_title_time"
@@ -252,7 +227,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/noti_title_time"
                         android:textSize="12sp"
-                        android:textColor="@color/black_03"/>
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/tv_noti_setting_time"
@@ -260,16 +235,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:text="@{noti_time}"/>
+                        android:text="15:00"/>
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_logout"
+            android:id="@+id/tv_favorite"
             style="@style/Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -279,16 +255,47 @@
             android:paddingLeft="20dp"
             android:paddingBottom="16dp"
             android:background="@drawable/change_color_press_white"
-            android:text="@string/logout"
+            android:text="나의 관심 기프티콘"
             app:layout_constraintTop_toBottomOf="@+id/l_noti"
             android:foreground="?attr/selectableItemBackground"/>
+
+
+        <TextView
+            android:id="@+id/my_gifticon"
+            style="@style/Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/change_color_press_white"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingLeft="20dp"
+            android:paddingTop="16dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="16dp"
+            android:text="내 상품 관리"
+            app:layout_constraintTop_toBottomOf="@+id/tv_favorite"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/tv_logout"
+            style="@style/Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/change_color_press_white"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingLeft="20dp"
+            android:paddingTop="16dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="16dp"
+            android:text="@string/logout"
+            app:layout_constraintTop_toBottomOf="@+id/my_gifticon"
+            tools:layout_editor_absoluteX="0dp" />
 
         <TextView
             android:id="@+id/tv_withdraw"
             style="@style/Regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
+
             android:paddingTop="16dp"
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
@@ -296,7 +303,7 @@
             android:background="@drawable/change_color_press_white"
             android:text="@string/withdraw"
             android:textSize="12sp"
-            android:textColor="@color/grey_06"
+            android:textColor="@color/crimson"
             app:layout_constraintTop_toBottomOf="@+id/tv_logout"
             android:foreground="?attr/selectableItemBackground"/>
 

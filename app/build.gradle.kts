@@ -50,14 +50,24 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.google.code.gson:gson:2.8.8")
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //갤러리 사진 가져오는 라이브러리 기타 등등..
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //Java 개체를 JSON 표현으로 변환하는 데 사용할 수 있는 Java 라이브러리
+    implementation ("com.google.code.gson:gson:2.10.1")
+
+    //뷰모델, 라이브데이터
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    
+    //ocr광학 라이브러리
+    implementation ("com.rmtheis:tess-two:9.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-    //...
 
 }
